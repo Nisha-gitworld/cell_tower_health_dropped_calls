@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cell Tower Health & Dropped Calls</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f6f8fb;color:#172033;line-height:1.6}
+.hero{background:#101828;color:#fff;padding:70px 24px}.wrap{max-width:1050px;margin:auto}
+h1{font-size:clamp(38px,6vw,64px);line-height:1.05;margin:12px 0}.hero p{max-width:760px;font-size:19px;opacity:.9}
+.btn{display:inline-block;margin:14px 10px 0 0;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:bold;background:#fff;color:#101828}
+.btn.alt{background:transparent;color:#fff;border:1px solid #667085}
+section{padding:50px 24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.card{background:#fff;border:1px solid #e4e8ef;border-radius:14px;padding:22px;box-shadow:0 4px 18px #1018280d}
+.metric{font-size:30px;font-weight:800}.muted{color:#667085}
+.pipeline{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.stage{background:#fff;border:1px solid #dfe4ec;border-radius:12px;padding:20px;text-align:center;font-weight:800}.arrow{font-size:24px;color:#667085}
+footer{background:#101828;color:#cbd5e1;padding:28px 24px;text-align:center}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<p>DATA ENGINEERING CAPSTONE PROJECT</p>
+<h1>Cell Tower Health &amp; Dropped Calls</h1>
+<p>A Databricks and Snowflake data engineering pipeline that ingests raw call records, validates and transforms them through Bronze, Silver and Gold layers, and produces hourly cell-tower health metrics for analysis.</p>
+<a class="btn" href="https://github.com/Nisha-gitworld/cell_tower_health_dropped_calls" target="_blank">View GitHub Repository</a>
+<a class="btn alt" href="https://drive.google.com/drive/folders/1HtE0DmLCMjStppgZGrbt7DC5vUKV1YR8" target="_blank">View Project Files</a>
+</div></header>
+<section><div class="wrap"><h2>Project Architecture</h2><div class="pipeline">
+<div class="stage">Raw Data</div><div class="arrow">→</div><div class="stage">Bronze<br><span class="muted">Raw + metadata</span></div><div class="arrow">→</div><div class="stage">Silver<br><span class="muted">Clean + validate</span></div><div class="arrow">→</div><div class="stage">Gold<br><span class="muted">Hourly metrics</span></div><div class="arrow">→</div><div class="stage">Snowflake<br><span class="muted">Analysis</span></div>
+</div></div></section>
+<section><div class="wrap"><h2>Pipeline Results</h2><div class="grid">
+<div class="card"><div class="metric">372,150</div><div class="muted">Valid call records</div></div>
+<div class="card"><div class="metric">2,250</div><div class="muted">Rejected records</div></div>
+<div class="card"><div class="metric">43,142</div><div class="muted">Gold hourly records</div></div>
+<div class="card"><div class="metric">6,792</div><div class="muted">Dropped calls</div></div>
+<div class="card"><div class="metric">120</div><div class="muted">Cell towers</div></div>
+</div></div></section>
+<section><div class="wrap"><h2>Data Processing</h2><div class="grid">
+<div class="card"><h3>Bronze</h3><p>Raw tower and call data is preserved with ingestion metadata including source file, ingestion timestamp and row hash.</p></div>
+<div class="card"><h3>Silver</h3><p>Records are type-cast, deduplicated and validated. Invalid durations and unknown towers are rejected, while dropped calls and end timestamps are derived.</p></div>
+<div class="card"><h3>Gold</h3><p>One row per tower, date and hour with calls, dropped calls, drop rate, average duration, peak concurrency and utilisation.</p></div>
+<div class="card"><h3>Snowflake</h3><p>The Gold CSV is staged and loaded into <strong>GOLD_TOWER_HOUR</strong> for business analysis.</p></div>
+</div></div></section>
+<section><div class="wrap"><h2>Business Analysis</h2><div class="card"><ul>
+<li>Identified the worst drop-rate hour for each tower.</li>
+<li>Identified 40 towers (T081–T120) exceeding a 5% daily drop rate on more than 10 of 15 days.</li>
+<li>Compared drop rates across peak concurrent-call levels.</li>
+</ul></div></div></section>
+<section><div class="wrap"><h2>Technology Stack</h2><div class="grid">
+<div class="card"><strong>Databricks</strong><p class="muted">PySpark pipeline and scheduled job</p></div>
+<div class="card"><strong>Delta Lake</strong><p class="muted">Bronze, Silver and Gold tables</p></div>
+<div class="card"><strong>Snowflake</strong><p class="muted">Staging, loading and SQL analysis</p></div>
+<div class="card"><strong>GitHub</strong><p class="muted">Source code and documentation</p></div>
+</div></div></section>
+<footer>Cell Tower Health &amp; Dropped Calls · Data Engineering Capstone · Nisha</footer>
+</body>
+</html>
